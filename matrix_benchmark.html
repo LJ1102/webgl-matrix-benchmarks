@@ -172,15 +172,7 @@
   <body>
     <p>
       This page benchmarks the performance of a collection of matrix libraries most of which are intended for use with WebGL:<br>
-      <a href="https://github.com/toji/gl-matrix">glMatrix</a> (v2.3.2, 2016-7-20),
-      <a href="http://code.google.com/p/webgl-mjs/">mjs</a> (rev 16, 2010-12-15),
-      CanvasMatrix, 
-      <a href="http://code.google.com/p/ewgl-matrices/">EWGL_math</a> (rev 32, 2011-03-15),
-      the math utilities in Google's <a href="http://closure-library.googlecode.com/">Closure</a> (svn rev: 1364, 2011-11-3),
-      <a href="https://github.com/greggman/tdl">tdl</a> (commit: 59d484f, 2011-06-03), and
-      <a href="https://github.com/greggman/twgl.js">twgl.js</a> (v3.3.0, 2017-05-05), and
-      <a href="http://sylvester.jcoglan.com/">Sylvester</a> (v0.1.3, 2007-07-05).<br>
-      Benchmarks for each library are run in an iframe. Results measure millions of iterations per second of the target operation.<br/>
+      <ul id="libsnversions"></ul>
     </p>
     <div id="graph" style="width:900px;height:400px;margin:10px"></div>
     <div id="tablediv" style="font-size:85%;width:800px;margin:10px">
@@ -206,19 +198,72 @@
     <script type="text/javascript">
 
       testURLs = [
-        {name: 'glMatrix',        url: 'libs/glMatrix/glMatrix.html'        },
-        {name: 'glMatrix-native', url: 'libs/glMatrix/glMatrix.html#native' },
-        {name: 'mjs',             url: 'libs/mjs/mjs.html'                  },
-        {name: 'CanvasMatrix',    url: 'libs/CanvasMatrix/CanvasMatrix.html'},
-        {name: 'EWGL',            url: 'libs/EWGL_math/EWGL_math.html'      },
-        {name: 'TDLMath',         url: 'libs/tdl/tdl-math.html'             },
-        {name: 'TDLFast',         url: 'libs/tdl/tdl-fast.html'             },
-        {name: 'closure',         url: 'libs/closure/closure.html'          },
-        {name: 'Three',           url: 'libs/three.js/three.js.html'        },
-        {name: 'twgl',            url: 'libs/twgl/twgl.html'                },
-        {name: 'twgl-native',     url: 'libs/twgl/twgl-native.html'         },
-        {name: 'Sylvester',       url: 'libs/Sylvester/Sylvester.html'      }
+        {
+          name: 'glMatrix',
+          url: 'libs/glMatrix/glMatrix.html',
+          web: 'http://www.glmatrix.net',
+          version: 'v2.3.2, 2016-7-20'
+        },{
+          name: 'glMatrix-native',
+          url: 'libs/glMatrix/glMatrix.html#native',
+          web: 'http://www.glmatrix.net',
+          version: 'v2.3.2, 2016-7-20'
+        },{
+          name: 'mjs',
+          url: 'libs/mjs/mjs.html',
+          web: 'http://code.google.com/p/webgl-mjs',
+          version: 'rev 16, 2010-12-15'
+        },{
+          name: 'CanvasMatrix',
+          url: 'libs/CanvasMatrix/CanvasMatrix.html',
+          web: '',
+          version: ''
+        },{
+          name: 'EWGL',
+          url: 'libs/EWGL_math/EWGL_math.html',
+          web: 'http://code.google.com/p/ewgl-matrices',
+          version: 'rev 32, 2011-03-15'
+        },{
+          name: 'TDLMath',
+          url: 'libs/tdl/tdl-math.html',
+          web: 'http://github.com/greggman/tdl/',
+          version: 'commit: 59d484f, 2011-06-03'
+        },{
+          name: 'TDLFast',
+          url: 'libs/tdl/tdl-fast.html',
+          web: 'http://github.com/greggman/tdl/',
+          version: 'commit: 59d484f, 2011-06-03'
+        },{
+          name: 'closure',
+          url: 'libs/closure/closure.html',
+          web: 'https://github.com/google/closure-library',
+          version: 'svn rev: 1364, 2011-11-3'
+        },{
+          name: 'Three',
+          url: 'libs/three.js/three.js.html',
+          web: 'http://threejs.org/'
+        },{
+          name: 'twgl',
+          url: 'libs/twgl/twgl.html',
+          web: 'http://twgljs.org/',
+          version: 'v3.3.0, 2017-05-05'
+        },{
+          name: 'twgl-native',
+          url: 'libs/twgl/twgl-native.html',
+          web: 'http://twgljs.org/',
+          version: 'v3.3.0, 2017-05-05'
+        },{
+          name: 'Sylvester',
+          url: 'libs/Sylvester/Sylvester.html',
+          web: 'http://sylvester.jcoglan.com/',
+          version: 'v0.1.3, 2007-07-05'
+        }
       ];
+      document.getElementById('libsnversions').innerHTML =
+        testURLs.map(function (lib) {
+          return '<li><a href="'+lib.web+'">'+lib.name+'</a>('+lib.version+')</li>';
+        }).join('')
+      ;
       var libraries = testURLs.map(function(t) { return t.name;});
 
       var waiting = 1;
